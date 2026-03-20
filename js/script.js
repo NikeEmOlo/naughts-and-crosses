@@ -17,7 +17,7 @@ const gameController = (function() {
         }
         for (i = 0; i < 9; i++) {
             takeTurn()
-            !whosTurn;
+            whosTurn = !whosTurn;
         }
     }
 
@@ -33,6 +33,7 @@ const gameController = (function() {
         } else {
             console.log("Hmmm, try choosing somewhere on the board");
             playerChoice;
+            return
         }
     }
 
