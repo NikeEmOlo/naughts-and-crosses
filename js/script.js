@@ -19,6 +19,7 @@ const gameController = (function() {
             takeTurn()
             whosTurn = !whosTurn;
         }
+        
     }
 
     function takeTurn() {
@@ -39,7 +40,6 @@ const gameController = (function() {
 
     return {
         startGame,
-
     }
 })()
 
@@ -66,12 +66,14 @@ const gameBoard = (function() {
         boardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8",]
     }
 
+    function checkWinner() {}
 
   return {
     updateBoard,
     displayBoardInConsole,
     printBoard,
     resetGameBoard,
+    checkWinner,
   }
 })()
 
