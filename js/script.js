@@ -4,11 +4,11 @@ const gameController = (function() {
     function startGame() {
         console.log("Let's play Naughts and Crosses.")
         const showInstructions = prompt("Do you need to see the instructions on how to play? Type y for yes or n for no.")
-        if (showInstructions === "y" | "Y") {
+        if (showInstructions.toLowerCase() === "y") {
             alert("Game instructions:\nYou need two players for this game.\nTake it in turns to place your marker on the grid.\nThe goal is to get three of your markers in a row, horizontally, vertically, or diagonally.\nThat's it!")
             console.log("Let's go!")
             gameBoard.displayBoardInConsole();
-        } else if (showInstructions === "n" | "N") {
+        } else if (showInstructions.toLowerCase() === "n") {
             console.log(`OK let's go!`)
             gameBoard.displayBoardInConsole();
         } else {
