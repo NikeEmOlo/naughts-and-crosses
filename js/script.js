@@ -77,6 +77,20 @@ const gameBoard = (function() {
             [0, 4, 8],
             [2, 4, 6],
         ]
+
+        for (i = 0; i < winningCombos.length; i++) {
+            const combo = winningCombos[i];
+            if (boardArr[combo[0]] === "x" && boardArr[combo[1]] === "x" && boardArr[combo[2]] === "x") {
+                console.log("Player 1 wins!")
+                players.playerInfo.p1.score++;
+            } else if (boardArr[combo[0]] === "o" && boardArr[combo[1]] === "o" && boardArr[combo[2]] === "o") {
+                players.playerInfo.p2.score++;
+                console.log("Player 2 wins!")
+            } else {
+                console.log("Something wrong with scoring or winning combos")
+            }
+        }
+
         return winningCombos;
     }
 
