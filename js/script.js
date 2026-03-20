@@ -11,22 +11,22 @@ const gameController = (function() {
             That's it!`)
         console.log("Let's go!")
         gameBoard.displayBoardInConsole();
-        takeTurn();
         } else if (showInstructions === "n" | "N") {
             console.log(`OK let's go!`)
             gameBoard.displayBoardInConsole();
-            takeTurn();
         } else {
             console.log(`Not sure what that means, but it's not that hard. Let's play`);
             gameBoard.displayBoardInConsole();
-            takeTurn();
         }
-
+        for (i = 0; i < 9; i++) {
+            takeTurn()
+            !whosTurn;
+        }
     }
 
     function takeTurn() {
         const currentPlayer = whosTurn ? "Player 1" : "Player 2";
-        prompt(`${currentPlayer}'s turn. Choose where to put your marker by typing the number:
+        const playerChoice = prompt(`${currentPlayer}'s turn. Choose where to put your marker by typing the number:
         ${gameBoard.printBoard()}`)
         //Need to update the gameBoard here
     }
