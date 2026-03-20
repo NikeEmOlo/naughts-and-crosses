@@ -12,3 +12,6 @@ The task is to create a game of Naughts and Crosses that can be played on the we
 5. Closure
 
 ### Pseudocode and workings
+
+1. Consider a way to map the gameboard in the console.
+    - Can use an array and the index will be reference to the location.
