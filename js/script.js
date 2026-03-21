@@ -21,7 +21,9 @@ const gameController = (function() {
             const winner = gameBoard.checkWinner()
 
             if (winner) {
+                gameBoard.displayBoardInConsole()
                 console.log(`${winner} wins!`)
+                gameBoard.resetGameBoard()
                 break
             }
         }
