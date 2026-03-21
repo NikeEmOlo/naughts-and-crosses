@@ -15,9 +15,15 @@ const gameController = (function() {
             console.log(`Not sure what that means, but it's not that hard. Let's play`);
             gameBoard.displayBoardInConsole();
         }
-        for (i = 0; i < 9; i++) {
+
+        for (let i = 0; i < 9; i++) {
             takeTurn()
-            whosTurn = !whosTurn;
+            const winner = gameBoard.checkWinner()
+
+            if (winner) {
+                console.log(`${winner} wins!`)
+                break
+            }
         }
         
     }
@@ -29,12 +35,13 @@ const gameController = (function() {
         //Need to update the gameBoard here
         if (whosTurn) {
             gameBoard.updateBoard(playerChoice, "x");
+            whosTurn = !whosTurn;
         } else if (!whosTurn) {
             gameBoard.updateBoard(playerChoice, "o");
+            whosTurn = !whosTurn;
         } else {
             console.log("Hmmm, try choosing somewhere on the board");
             playerChoice;
-            return
         }
     }
 
@@ -45,7 +52,7 @@ const gameController = (function() {
 
 
 const gameBoard = (function() {
-    const boardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8",]
+    let boardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8",]
 
     function updateBoard(index, player) {
         boardArr[index] = player;
@@ -67,36 +74,31 @@ const gameBoard = (function() {
     }
 
     function checkWinner() {
-        const winningCombos = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6],
-        ]
+    const winningCombos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ]
 
-        for (i = 0; i < winningCombos.length; i++) {
-            const combo = winningCombos[i];
-            if (boardArr[combo[0]] === "x" && boardArr[combo[1]] === "x" && boardArr[combo[2]] === "x") {
-                console.log("Player 1 wins!")
-                players.playerInfo.p1.score++;
-                displayBoardInConsole();
-                resetGameBoard();
-            } else if (boardArr[combo[0]] === "o" && boardArr[combo[1]] === "o" && boardArr[combo[2]] === "o") {
-                players.playerInfo.p2.score++;
-                displayBoardInConsole();
-                console.log("Player 2 wins!")
-                resetGameBoard();
-            } else {
-                console.log("Something wrong with scoring or winning combos")
-            }
+    for (let combo of winningCombos) {
+        const [a, b, c] = combo
+
+        if (boardArr[a] === "x" && boardArr[b] === "x" && boardArr[c] === "x") {
+            return "Player 1"
         }
-        
-        return winningCombos;
+
+        if (boardArr[a] === "o" && boardArr[b] === "o" && boardArr[c] === "o") {
+            return "Player 2"
+        }
     }
+
+    return null
+}
 
   // your checking logic here
 
