@@ -131,5 +131,14 @@ const players = (function() {
 })()
 
 const display = (function() {
-    
+    function eventListeners() {
+        const cells = document.querySelectorAll(".cell")
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].addEventListener("click", takeTurn)
+        }
+    }
+
+    return {
+        eventListeners,
+    }
 })()
