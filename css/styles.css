@@ -3,18 +3,18 @@ body {
     width: auto;
     height: 100vh;
     justify-content: center;
-    align-content: center;
+    align-items: center;
 }
-
 
 .game-board {
     display: grid;
     grid-template-rows: repeat(3, 250px);
-    grid-template-rows: repeat(3, 250px);
+    grid-template-columns: repeat(3, 250px);
+    border: 1px solid black;
 }
 
 .cell {
     min-width: 250px;
     min-height: 250px;
-    border: black;
+    border: 1px solid black;
 }
