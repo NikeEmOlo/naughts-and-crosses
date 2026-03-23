@@ -3,18 +3,6 @@ const gameController = (function() {
 
     function startGame() {
 
-        if (showInstructions.toLowerCase() === "y") {
-            alert("Game instructions:\nYou need two players for this game.\nTake it in turns to place your marker on the grid.\nThe goal is to get three of your markers in a row, horizontally, vertically, or diagonally.\nThat's it!")
-            console.log("Let's go!")
-            gameBoard.displayBoardInConsole();
-        } else if (showInstructions.toLowerCase() === "n") {
-            console.log(`OK let's go!`)
-            gameBoard.displayBoardInConsole();
-        } else {
-            console.log(`Not sure what that means, but it's not that hard. Let's play`);
-            gameBoard.displayBoardInConsole();
-        }
-
         for (let i = 0; i < 9; i++) {
             takeTurn()
             const winner = gameBoard.checkWinner()
