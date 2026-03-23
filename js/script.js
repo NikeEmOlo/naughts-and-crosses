@@ -52,7 +52,6 @@ const gameController = (function() {
     }
 })()
 
-
 const gameBoard = (function() {
     let boardArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8",]
 
@@ -129,4 +128,8 @@ const players = (function() {
     return {
         playerInfo,
     }
+})()
+
+const display = (function() {
+    
 })()

@@ -15,6 +15,7 @@ The task is to create a game of Naughts and Crosses that can be played on the we
 
 1. Consider a way to map the gameboard in the console.
     - Can use an array and the index will be reference to the location.
-2. CURRENTLY WORKING ON: takeTurn function
+2. ~~CURRENTLY WORKING ON: takeTurn function~~
     - Next step is taking user input and updating the gameboard with their answer
     - followed by adding a winning condition checker
+3. Build grid for UI and get it to display
