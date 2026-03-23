@@ -2,8 +2,7 @@ const gameController = (function() {
     let whosTurn = true;
 
     function startGame() {
-        console.log("Let's play Naughts and Crosses.")
-        const showInstructions = prompt("Do you need to see the instructions on how to play? Type y for yes or n for no.")
+
         if (showInstructions.toLowerCase() === "y") {
             alert("Game instructions:\nYou need two players for this game.\nTake it in turns to place your marker on the grid.\nThe goal is to get three of your markers in a row, horizontally, vertically, or diagonally.\nThat's it!")
             console.log("Let's go!")
@@ -133,10 +132,7 @@ const players = (function() {
 const display = (function() {
 
     function eventListeners() {
-        // const cells = document.querySelectorAll(".cell")
-        // for (let i = 0; i < cells.length; i++) {
-        //     cells[i].addEventListener("click", takeTurn)
-        // }
+
         //show Instructions
         const instructionsButton = document.querySelector(".show-instructions");
         const modal = document.querySelector(".modal");
@@ -149,11 +145,35 @@ const display = (function() {
         closeModalButton.addEventListener("click", () => {
             modal.close();
         })
+
+        //Start the game
+        const startGameButton = document.querySelector(".start-game")
+        startGameButton.addEventListener("click", () => {
+            gameController.startGame();
+            startGameButton.hidden = true;
+            displayAnnouncements();
+        })
     }
+
+    //Creates a div for announcements to be displayed
+    function displayAnnouncements() {
+        const header = document.querySelector(".header");
+        const announcement = document.createElement("h2")
+        announcement.classList.add("announcement");
+        header.appendChild(announcement)
+    }
+
+    function updateAnnouncementText (string) {
+        announcement.textContent = string;
+    }
+
+    
 
     return {
         eventListeners,
+        updateAnnouncementText,
     }
 })()
 
 display.eventListeners();
+display.startGame();

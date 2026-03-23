@@ -18,19 +18,20 @@ body {
     height: 100vh;
     width: 100%;
     gap: 10vh;
-    align-content: center;
+    align-items: center;
 }
 
 .header {
     display: flex;
     box-sizing: border-box;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
+    position: relative;
     width: 90vw;
     padding: 32px 0;
 
 
-    .show-instructions {
+    button {
         width: 125px;
         height: 48px;
         line-height: 0;
@@ -38,8 +39,22 @@ body {
         border-radius: 5px;
         background-color: rgb(202, 74, 0);
         color: white;
+    }
+
+    button.show-instructions {
+        position: absolute;
+        right: 0;
+        top: 32px;
+    }
+
+    button.start-game {
+        background-color: rgb(0, 0, 0);
+        color: white;
+    }
+
+
 }
-}
+
 
 .game-board {
     display: grid;
