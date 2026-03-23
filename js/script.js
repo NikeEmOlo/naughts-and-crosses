@@ -131,14 +131,29 @@ const players = (function() {
 })()
 
 const display = (function() {
+
     function eventListeners() {
-        const cells = document.querySelectorAll(".cell")
-        for (let i = 0; i < cells.length; i++) {
-            cells[i].addEventListener("click", takeTurn)
-        }
+        // const cells = document.querySelectorAll(".cell")
+        // for (let i = 0; i < cells.length; i++) {
+        //     cells[i].addEventListener("click", takeTurn)
+        // }
+        //show Instructions
+        const instructionsButton = document.querySelector(".show-instructions");
+        const modal = document.querySelector(".modal");
+        const closeModalButton = document.querySelector(".close-modal");
+
+        instructionsButton.addEventListener("click", () => {
+            modal.showModal();
+        } )
+
+        closeModalButton.addEventListener("click", () => {
+            modal.close();
+        })
     }
 
     return {
         eventListeners,
     }
 })()
+
+display.eventListeners();
