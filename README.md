@@ -23,6 +23,9 @@ The task is to create a game of Naughts and Crosses that can be played on the we
     - ~~prevent multiple entries into each square~~
     - ~~prevent clicks before start button is pressed~~
 6. ~~Need to add a board reset function and ability to start new game~~
+7. Highlight winning tiles
+8. Update scores function
+9. Reset game options
 
 ## Bugs
 1. ~~Winner not being identified~~

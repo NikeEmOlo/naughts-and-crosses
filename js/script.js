@@ -15,12 +15,13 @@ const gameController = (function() {
         gameBoard.updateBoard(cellNum, marker);
         stats.gameStats.turns++
         whosTurn = !whosTurn;
-        const winner = gameBoard.checkWinner();
-        if (winner === null) {
+        const result = gameBoard.checkWinner();
+        if (result.winner === null) {
             display.updateAnnouncementText(`${player}'s turn`);
         } else {
             display.allowClicksToggle()
-            display.updateAnnouncementText(`${winner} wins!`)
+            display.updateAnnouncementText(`${result.winner} wins!`)
+            display.highlightWin(result.combo);
         }
 
         if (stats.gameStats.turns === 9) {
@@ -72,15 +73,15 @@ const gameBoard = (function() {
         const [a, b, c] = combo
 
         if (boardArr[a] === "X" && boardArr[b] === "X" && boardArr[c] === "X") {
-            return "Player 1"
+            return { winner: "Player 1", combo: combo }
         }
 
         if (boardArr[a] === "O" && boardArr[b] === "O" && boardArr[c] === "O") {
-            return "Player 2"
+            return { winner: "Player 2", combo: combo };
         }
     }
 
-    return null
+    return {winner: null, combo: null}
 }
 
   // your checking logic here
@@ -167,12 +168,20 @@ const display = (function() {
         cell.appendChild(text)
     }
 
+    function highlightWin(combo) {
+        for (let num of combo) {
+            let cell = document.querySelector(`[data-index="${num}"]`)
+            cell.style.backgroundColor = "green"; 
+        }
+    }
+
     return {
         eventListeners,
         updateAnnouncementText,
         addMarker,
         displayAnnouncements,
         allowClicksToggle,
+        highlightWin,
     }
 })()
 
