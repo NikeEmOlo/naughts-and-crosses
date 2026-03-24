@@ -202,10 +202,15 @@ const display = (function() {
     }
 
     function addMarker(cell, marker) {
-        const text = document.createElement("h1");
-        text.textContent = marker
-        cell.appendChild(text)
+        if (cell.querySelector("h1")) {
+            return
+        } else {
+            const text = document.createElement("h1");
+            text.textContent = marker
+            cell.appendChild(text)
+        }
     }
+    
 
     function highlightWin(combo) {
         for (let num of combo) {
