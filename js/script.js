@@ -13,8 +13,9 @@ const gameController = (function() {
 
         display.addMarker(cell, marker);
         gameBoard.updateBoard(cellNum, marker);
-        stats.gameStats.turns++
+        let turns = stats.updateTurns();
         whosTurn = !whosTurn;
+
         const result = gameBoard.checkWinner();
         if (result.winner === null) {
             display.updateAnnouncementText(`${player}'s turn`);
@@ -22,9 +23,10 @@ const gameController = (function() {
             display.allowClicksToggle()
             display.updateAnnouncementText(`${result.winner} wins!`)
             display.highlightWin(result.combo);
+            stats.updateWinnerStats(result.winner)
         }
 
-        if (stats.gameStats.turns === 9) {
+        if (turns === 9) {
             display.allowClicksToggle()
             display.updateAnnouncementText(`It's a draw!`)
         }
@@ -97,14 +99,36 @@ const stats = (function() {
 
     const gameStats = {
         score: {
-            p1: 0,
-            p2: 0,
+            "Player 1": 0,
+            "Player 2": 0,
         },
         turns: 0,
     }
 
+    function updateWinnerStats(winner) {
+        gameStats.score[winner]++
+        return gameStats.score;
+    }
+
+    function updateTurns() {
+        gameStats.turns++
+        return gameStats.turns;
+    }
+
+    function resetStats() {
+        gameStats = {
+            score: {
+                p1: 0,
+                p2: 0,
+            },
+            turns: 0,
+        }
+    }
+
     return {
-        gameStats,
+        updateWinnerStats,
+        updateTurns,
+        resetStats,
     }
 })()
 
@@ -174,6 +198,8 @@ const display = (function() {
             cell.style.backgroundColor = "green"; 
         }
     }
+
+    
 
     return {
         eventListeners,
