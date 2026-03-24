@@ -68,11 +68,11 @@ const gameBoard = (function() {
     for (let combo of winningCombos) {
         const [a, b, c] = combo
 
-        if (boardArr[a] === "x" && boardArr[b] === "x" && boardArr[c] === "x") {
+        if (boardArr[a] === "X" && boardArr[b] === "X" && boardArr[c] === "X") {
             return "Player 1"
         }
 
-        if (boardArr[a] === "o" && boardArr[b] === "o" && boardArr[c] === "o") {
+        if (boardArr[a] === "O" && boardArr[b] === "O" && boardArr[c] === "O") {
             return "Player 2"
         }
     }

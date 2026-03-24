@@ -26,4 +26,4 @@ The task is to create a game of Naughts and Crosses that can be played on the we
 
 
 ## Bugs
-1. Winner not being identified
+1. ~~Winner not being identified~~
