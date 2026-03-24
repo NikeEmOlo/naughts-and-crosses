@@ -4,6 +4,7 @@ const gameController = (function() {
     function startGame() {
         let player = getCurrent().player;
         display.updateAnnouncementText(`${player}'s turn`)
+        display.allowClicksToggle();
     }
 
     function takeTurn(cell, cellNum) {
@@ -18,10 +19,12 @@ const gameController = (function() {
         if (winner === null) {
             display.updateAnnouncementText(`${player}'s turn`);
         } else {
+            display.allowClicksToggle()
             display.updateAnnouncementText(`${winner} wins!`)
         }
 
         if (stats.gameStats.turns === 9) {
+            display.allowClicksToggle()
             display.updateAnnouncementText(`It's a draw!`)
         }
     }
@@ -106,6 +109,9 @@ const stats = (function() {
 
 const display = (function() {
 
+    const board = document.querySelector(".game-board")
+    let allowClicks = false;
+
     function eventListeners() {
 
         //show Instructions
@@ -137,6 +143,11 @@ const display = (function() {
         }
     }
 
+    function allowClicksToggle() {
+        allowClicks = !allowClicks;
+        board.style.pointerEvents = allowClicks ? "all" : "none";
+    }
+
     //Creates a div for announcements to be displayed
     function displayAnnouncements() {
         const header = document.querySelector(".header");
@@ -156,13 +167,12 @@ const display = (function() {
         cell.appendChild(text)
     }
 
-    
-
     return {
         eventListeners,
         updateAnnouncementText,
         addMarker,
         displayAnnouncements,
+        allowClicksToggle,
     }
 })()
 
