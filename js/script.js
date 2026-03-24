@@ -17,21 +17,19 @@ const gameController = (function() {
         whosTurn = !whosTurn;
 
         const result = gameBoard.checkWinner();
-        if (result.winner === null) {
-            display.updateAnnouncementText(`${player}'s turn`);
-        } else {
+        if (result.winner !== null) {
             display.allowClicksToggle()
             display.updateAnnouncementText(`${result.winner} wins!`)
             display.highlightWin(result.combo);
             stats.updateWinnerStats(result.winner)
             display.updateCounters();
             display.showPlayAgain();
-        }
-
-        if (turns === 9) {
+        } else if (turns === 9) {
             display.allowClicksToggle()
             display.updateAnnouncementText(`It's a draw!`)
             display.showPlayAgain();
+        } else {
+            display.updateAnnouncementText(`${player}'s turn`);
         }
     }
 
@@ -169,6 +167,7 @@ const display = (function() {
         startGameButton.addEventListener("click", () => {
             if (startGameButton.classList.contains("play-again")){
                 gameController.resetGame();
+                startGameButton.classList.remove("play-again")
             }
             startGameButton.hidden = true;
             displayAnnouncements();
@@ -178,7 +177,7 @@ const display = (function() {
         //Listen for player choice
         for (const cell of cells) {
             cell.addEventListener("click", (e) => {
-                gameController.takeTurn(e.target, e.target.dataset.index)
+                gameController.takeTurn(cell, cell.dataset.index);
             });
         }
     }
@@ -190,9 +189,10 @@ const display = (function() {
 
     //Creates a div for announcements to be displayed
     function displayAnnouncements() {
-        const announcement = document.createElement("h2")
+        if (document.querySelector(".announcement")) return;
+        const announcement = document.createElement("h2");
         announcement.classList.add("announcement");
-        header.appendChild(announcement)
+        header.appendChild(announcement);
     }
 
     function updateAnnouncementText (string) {
@@ -241,7 +241,7 @@ const display = (function() {
         for (const cell of cells) {
             cell.style.backgroundColor = "";
             const text = cell.querySelector("h1");
-            if (text) text.textContent = "";
+            if (text) text.remove();
         }
     }
 
