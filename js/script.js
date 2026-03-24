@@ -25,11 +25,13 @@ const gameController = (function() {
             display.highlightWin(result.combo);
             stats.updateWinnerStats(result.winner)
             display.updateCounters();
+            display.showPlayAgain();
         }
 
         if (turns === 9) {
             display.allowClicksToggle()
             display.updateAnnouncementText(`It's a draw!`)
+            display.showPlayAgain();
         }
     }
 
@@ -41,10 +43,17 @@ const gameController = (function() {
         return current
     }
 
+    function resetGame() {
+        gameBoard.resetGameBoard();
+        stats.resetTurns();
+        display.resetUI();
+    }
+
     return {
         startGame,
         whosTurn,
         takeTurn,
+        resetGame,
     }
 })()
 
@@ -121,27 +130,24 @@ const stats = (function() {
         return score;
     }
 
-    function resetStats() {
-        gameStats = {
-            score: {
-                p1: 0,
-                p2: 0,
-            },
-            turns: 0,
-        }
+    function resetTurns() {
+        gameStats.turns = 0;
+        console.log(gameStats.turns)
     }
 
     return {
         updateWinnerStats,
         updateTurns,
-        resetStats,
+        resetTurns,
         getScore,
     }
 })()
 
 const display = (function() {
 
+    const header = document.querySelector(".header");
     const board = document.querySelector(".game-board")
+    const startGameButton = document.querySelector(".start-game")
     let allowClicks = false;
 
     function eventListeners() {
@@ -150,6 +156,7 @@ const display = (function() {
         const instructionsButton = document.querySelector(".show-instructions");
         const modal = document.querySelector(".modal");
         const closeModalButton = document.querySelector(".close-modal");
+        const cells = document.querySelectorAll(".cell");
 
         instructionsButton.addEventListener("click", () => {
             modal.showModal();
@@ -159,15 +166,16 @@ const display = (function() {
         })
 
         //Start the game
-        const startGameButton = document.querySelector(".start-game")
         startGameButton.addEventListener("click", () => {
+            if (startGameButton.classList.contains("play-again")){
+                gameController.resetGame();
+            }
             startGameButton.hidden = true;
             displayAnnouncements();
             gameController.startGame();
         })
 
         //Listen for player choice
-        const cells = document.querySelectorAll(".cell");
         for (const cell of cells) {
             cell.addEventListener("click", (e) => {
                 gameController.takeTurn(e.target, e.target.dataset.index)
@@ -182,7 +190,6 @@ const display = (function() {
 
     //Creates a div for announcements to be displayed
     function displayAnnouncements() {
-        const header = document.querySelector(".header");
         const announcement = document.createElement("h2")
         announcement.classList.add("announcement");
         header.appendChild(announcement)
@@ -191,6 +198,7 @@ const display = (function() {
     function updateAnnouncementText (string) {
         let announcement = document.querySelector(".announcement")
         announcement.textContent = string;
+        announcement.hidden = false;
     }
 
     function addMarker(cell, marker) {
@@ -220,6 +228,24 @@ const display = (function() {
         return {updateCounters}
     }
 
+    function showPlayAgain() {
+        const announcement = document.querySelector("h2")
+        announcement.hidden = true;
+        startGameButton.textContent = "Play Again";
+        startGameButton.classList.add("play-again")
+        startGameButton.hidden = false;
+    }
+
+    function resetUI() {
+        const cells = document.querySelectorAll(".cell");
+        for (const cell of cells) {
+            cell.style.backgroundColor = "";
+            const text = cell.querySelector("h1");
+            if (text) text.textContent = "";
+        }
+    }
+
+
     return {
         eventListeners,
         updateAnnouncementText,
@@ -228,6 +254,8 @@ const display = (function() {
         allowClicksToggle,
         highlightWin,
         updateCounters: uiCounters().updateCounters,
+        showPlayAgain,
+        resetUI,
     }
 })()
 
