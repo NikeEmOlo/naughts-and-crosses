@@ -24,6 +24,7 @@ const gameController = (function() {
             display.updateAnnouncementText(`${result.winner} wins!`)
             display.highlightWin(result.combo);
             stats.updateWinnerStats(result.winner)
+            display.updateCounters();
         }
 
         if (turns === 9) {
@@ -115,6 +116,11 @@ const stats = (function() {
         return gameStats.turns;
     }
 
+    function getScore() {
+        let score = gameStats.score;
+        return score;
+    }
+
     function resetStats() {
         gameStats = {
             score: {
@@ -129,6 +135,7 @@ const stats = (function() {
         updateWinnerStats,
         updateTurns,
         resetStats,
+        getScore,
     }
 })()
 
@@ -199,7 +206,19 @@ const display = (function() {
         }
     }
 
-    
+    function uiCounters() {
+        const p1Score = document.querySelector("#p1-score");
+        const p2Score = document.querySelector("#p2-score");
+
+        function updateCounters() {
+            let score = stats.getScore()
+
+            p1Score.textContent = `${score["Player 1"]}`
+            p2Score.textContent = `${score["Player 2"]}`
+        }
+
+        return {updateCounters}
+    }
 
     return {
         eventListeners,
@@ -208,6 +227,7 @@ const display = (function() {
         displayAnnouncements,
         allowClicksToggle,
         highlightWin,
+        updateCounters: uiCounters().updateCounters,
     }
 })()
 
